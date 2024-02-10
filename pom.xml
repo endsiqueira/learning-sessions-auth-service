@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.learning.sessions</groupId>
 	<artifactId>auth-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>learning-sessions-auth-service</name>
 	<description>A service for authentication and authorization</description>
 	<properties>
