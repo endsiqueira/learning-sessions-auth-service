@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  auth-db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'auth_db'
+      MYSQL_USER: 'authuser'
+      MYSQL_PASSWORD: 'authpass'
+      MYSQL_ROOT_PASSWORD: 'authrootpass'
+    ports:
+      - "3307:3306"
+    volumes:
+      - auth-db:/var/lib/mysql
+volumes:
+  auth-db:
+    driver: local
