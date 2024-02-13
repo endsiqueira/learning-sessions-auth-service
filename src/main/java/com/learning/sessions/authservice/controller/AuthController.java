@@ -5,6 +5,7 @@ import com.learning.sessions.authservice.model.dto.UserLoginDto;
 import com.learning.sessions.authservice.model.dto.UserRegistrationDto;
 import com.learning.sessions.authservice.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,9 +27,11 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody UserLoginDto loginDto) {
-        // Placeholder para implementação futura
-        // Aqui ficara a lógica para autenticar o usuário e retornar um JWT
-        // Por agora, vamos retornar uma resposta de placeholder
-        return ResponseEntity.ok().body("Login functionality under construction.");
+        try {
+            String jwt = authenticationService.login(loginDto.getUsername(), loginDto.getPassword());
+            return ResponseEntity.ok().body(jwt);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação: " + e.getMessage());
+        }
     }
 }
