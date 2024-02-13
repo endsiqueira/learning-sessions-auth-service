@@ -1,4 +1,4 @@
-package com.learning.sessions.authservice.model;
+package com.learning.sessions.authservice.model.auth;
 
 import lombok.*;
 

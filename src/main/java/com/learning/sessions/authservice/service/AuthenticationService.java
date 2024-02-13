@@ -1,7 +1,7 @@
 package com.learning.sessions.authservice.service;
 
-import com.learning.sessions.authservice.model.User;
-import com.learning.sessions.authservice.repository.UserRepository;
+import com.learning.sessions.authservice.model.auth.User;
+import com.learning.sessions.authservice.repository.auth.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;

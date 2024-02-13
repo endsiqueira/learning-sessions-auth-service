@@ -1,12 +1,11 @@
-package com.learning.sessions.authservice.model;
+package com.learning.sessions.authservice.model.auth;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "UserRoles")
+@Table(name = "user_roles")
 @IdClass(UserRoleId.class)
 @Data
 @NoArgsConstructor
