@@ -1,8 +1,8 @@
 package com.learning.sessions.authservice.controller;
 
-import com.learning.sessions.authservice.model.User;
-import com.learning.sessions.authservice.model.dto.UserLoginDto;
-import com.learning.sessions.authservice.model.dto.UserRegistrationDto;
+import com.learning.sessions.authservice.model.auth.User;
+import com.learning.sessions.authservice.model.auth.dto.UserLoginDto;
+import com.learning.sessions.authservice.model.auth.dto.UserRegistrationDto;
 import com.learning.sessions.authservice.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
