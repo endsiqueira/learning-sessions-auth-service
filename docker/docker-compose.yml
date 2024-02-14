@@ -1,18 +1,38 @@
 version: '3.8'
 
 services:
-  auth-db:
+  db:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_DATABASE: 'auth_db'
-      MYSQL_USER: 'authuser'
-      MYSQL_PASSWORD: 'authpass'
-      MYSQL_ROOT_PASSWORD: 'authrootpass'
+      MYSQL_DATABASE: 'crudshop_db'
+      MYSQL_USER: 'cruduser'
+      MYSQL_PASSWORD: 'crudpassword'
+      MYSQL_ROOT_PASSWORD: 'crudrootpassword'
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
-      - auth-db:/var/lib/mysql
+      - my-db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+
+  vault:
+    image: vault:1.7.3
+    restart: always
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: myroot
+      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
+    ports:
+      - "8200:8200"
+    cap_add:
+      - IPC_LOCK
+    command: server -dev
+
 volumes:
-  auth-db:
+  my-db:
     driver: local

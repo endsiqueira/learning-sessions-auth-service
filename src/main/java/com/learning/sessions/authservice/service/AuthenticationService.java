@@ -4,13 +4,14 @@ import com.learning.sessions.authservice.model.auth.User;
 import com.learning.sessions.authservice.repository.auth.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.vault.core.VaultTemplate;
+import org.springframework.vault.support.VaultResponseSupport;
 
-import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 
 @Service
 public class AuthenticationService {
@@ -20,6 +21,11 @@ public class AuthenticationService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private VaultTemplate vaultTemplate;
+
+    private final String secretPath = "secret/data/jwt";
 
     public User registerUser(String username, String password, String email) {
         User newUser = new User();
@@ -44,17 +50,20 @@ public class AuthenticationService {
     private String generateJwtToken(User user) {
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
-        long expMillis = nowMillis + 3600000;
+        long expMillis = nowMillis + 3600000; // Token expira em 1 hora
         Date exp = new Date(expMillis);
 
-        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+        VaultResponseSupport<HashMap> response = vaultTemplate.read(secretPath, HashMap.class);
+        if (response == null || response.getData().get("jwt-secret-key") == null) {
+            throw new IllegalStateException("Não foi possível recuperar a chave secreta do Vault");
+        }
+        String secretKey = response.getData().get("jwt-secret-key").toString();
 
         return Jwts.builder()
                 .setSubject(user.getUsername())
                 .setIssuedAt(now)
                 .setExpiration(exp)
-                .signWith(key)
+                .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
-
 }
