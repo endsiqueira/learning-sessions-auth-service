@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.learning.sessions</groupId>
 	<artifactId>auth-service</artifactId>
-	<version>0.0.6-SNAPSHOT</version>
+	<version>0.0.7-SNAPSHOT</version>
 	<name>learning-sessions-auth-service</name>
 	<description>A service for authentication and authorization</description>
 	<properties>
@@ -54,12 +54,6 @@
 			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-parent</artifactId>
-			<version>3.2.2</version>
-			<type>pom</type>
-		</dependency>
 		<!-- JJWT API -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -81,7 +75,12 @@
 		<dependency>
 			<groupId>org.springframework.vault</groupId>
 			<artifactId>spring-vault-core</artifactId>
-			<version>2.3.2</version>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-vault-config</artifactId>
+			<version>4.1.0</version>
 		</dependency>
 	</dependencies>
 
